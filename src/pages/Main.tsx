@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import Header from "../components/Header";
-import InputTodo from "../components/InputTodo";
-import TodoList from "../components/TodoList";
-import { getTodoList } from "../api/todo";
+import Header from '../components/Header.tsx';
+import InputTodo from '../components/InputTodo.tsx';
+import TodoList from '../components/TodoList.tsx';
+import { getTodoList } from '../api/todo.tsx';
 
-const Main = () => {
+function Main() {
   const [todoListData, setTodoListData] = useState([]);
 
   useEffect(() => {
@@ -24,6 +24,6 @@ const Main = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Main;
