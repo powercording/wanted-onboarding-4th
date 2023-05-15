@@ -13,14 +13,9 @@ function InputTodo({ setTodos }: { setTodos: SetTodos }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await addTodo({ todoTitle: inputText });
-    } catch (error) {
-      console.error(error);
-      alert('Something went wrong.');
-    } finally {
-      setInputText('');
-    }
+
+    await addTodo({ todoTitle: inputText });
+    setInputText('');
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

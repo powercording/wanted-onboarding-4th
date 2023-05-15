@@ -14,12 +14,7 @@ function TodoItem({ id, title, setTodos }: TodoItemsType) {
   const { clearTodo, isLoading } = useTodo(setTodos);
 
   const handleRemoveTodo = async () => {
-    try {
-      await clearTodo(id);
-    } catch (error) {
-      console.error(error);
-      alert('Something went wrong.');
-    }
+    await clearTodo(id);
   };
 
   return (
