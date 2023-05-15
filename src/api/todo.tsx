@@ -1,11 +1,11 @@
 import apiRequest from './index.tsx';
-import { TodoTitle } from '../components/todo/TodoInterface.tsx';
+import { Todo, TodoTitle } from '../components/todo/TodoInterface.tsx';
 
 const RESOURCE = '/todos';
 
 export const getTodoList = async () => {
   try {
-    const response = await apiRequest.get(`${RESOURCE}`);
+    const response = await apiRequest.get<Todo[]>(`${RESOURCE}`);
 
     return response;
   } catch (error) {
