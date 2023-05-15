@@ -1,15 +1,29 @@
 import { useState } from 'react';
-import { Todo } from '../components/todo/TodoInterface.tsx';
+import { SetTodos, Todo } from '../components/todo/TodoInterface.tsx';
+import { createTodo, deleteTodo } from '../api/todo.tsx';
 
-export default function useTodo() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [loading, isLoading] = useState(false);
+export default function useTodo(setTodos: SetTodos) {
+  const [isLoading, setIsLoading] = useState(false);
 
-  const addTodo = async () => {};
-  const deleteTodo = async () => {};
+  const addTodo = async ({ todoTitle }: { todoTitle: string }) => {
+    setIsLoading(() => true);
+
+    const title = todoTitle.trim();
+    if (!title) {
+      return alert('Please write something');
+    }
+
+    const { data: newTodo } = await createTodo({ title }).finally(() => {
+      setIsLoading(() => false);
+    });
+    setTodos((prev: Todo[]) => [...prev, newTodo]);
+
+    return null;
+  };
+
+  // const deleteTodo = async () => {};
 
   return {
-    todos,
     addTodo,
     deleteTodo,
     isLoading,
