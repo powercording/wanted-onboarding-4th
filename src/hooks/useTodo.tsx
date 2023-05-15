@@ -35,8 +35,6 @@ export default function useTodo(setTodos: SetTodos) {
     } catch (error) {
       console.error(error);
       alert('Something went wrong.');
-    } finally {
-      setIsLoading(() => false);
     }
   };
 

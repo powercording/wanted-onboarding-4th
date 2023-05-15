@@ -48,7 +48,7 @@ const dummySearchList: SearchList = {
   total: 22,
 };
 export function testSearchList(page: number) {
-  const startIndex = (page - 1) * 10;
+  const startIndex = page * 10;
   const endIndex = startIndex + 10;
   const result = dummySearchList.result.slice(startIndex, endIndex);
   console.log(result);
