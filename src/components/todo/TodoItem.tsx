@@ -22,7 +22,7 @@ function TodoItem({ id, title, setTodos }: TodoItemsType) {
       <span>{title}</span>
       <div className="item-option">
         {!isLoading ? (
-          <button type="button" onClick={() => handleRemoveTodo()}>
+          <button type="button" onClick={handleRemoveTodo}>
             <FaTrash className="btn-trash" />
           </button>
         ) : (
