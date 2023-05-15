@@ -8,22 +8,36 @@ export default function useTodo(setTodos: SetTodos) {
   const addTodo = async ({ todoTitle }: { todoTitle: string }) => {
     setIsLoading(() => true);
 
-    const title = todoTitle.trim();
-    if (!title) {
-      return alert('Please write something');
+    try {
+      const title = todoTitle.trim();
+
+      if (!title) {
+        return alert('Please write something');
+      }
+
+      const { data: newTodo } = await createTodo({ title });
+      setTodos((prev: Todo[]) => [...prev, newTodo]);
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong.');
+    } finally {
+      setIsLoading(() => false);
     }
-
-    const { data: newTodo } = await createTodo({ title }).finally(() => setIsLoading(() => false));
-    setTodos((prev: Todo[]) => [...prev, newTodo]);
-
     return null;
   };
 
   const clearTodo = async (id: number) => {
     setIsLoading(() => true);
 
-    await deleteTodo(id).finally(() => setIsLoading(() => false));
-    setTodos((prev: Todo[]) => prev.filter((todo: Todo) => todo.id !== id));
+    try {
+      await deleteTodo(id);
+      setTodos((prev: Todo[]) => prev.filter((todo: Todo) => todo.id !== id));
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong.');
+    } finally {
+      setIsLoading(() => false);
+    }
   };
 
   return {
