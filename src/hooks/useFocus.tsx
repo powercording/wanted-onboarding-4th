@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 const useFocus = () => {
   const ref = useRef<HTMLInputElement>(null);
@@ -8,7 +8,11 @@ const useFocus = () => {
     }
   };
 
-  return { ref, setFocus };
+  useEffect(() => {
+    setFocus();
+  }, [setFocus]);
+
+  return { ref };
 };
 
 export default useFocus;

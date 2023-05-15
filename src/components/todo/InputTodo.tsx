@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
 
 import { createTodo } from '../../api/todo.tsx';
@@ -9,11 +9,7 @@ import { Todo, SetTodos } from './TodoInterface.tsx';
 function InputTodo({ setTodos }: { setTodos: SetTodos }) {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { ref, setFocus } = useFocus();
-
-  useEffect(() => {
-    setFocus();
-  }, [setFocus]);
+  const { ref } = useFocus();
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
