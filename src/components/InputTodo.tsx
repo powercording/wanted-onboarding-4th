@@ -14,7 +14,7 @@ function InputTodo({ setTodos }) {
   }, [setFocus]);
 
   const handleSubmit = useCallback(
-    async e => {
+    async (e: React.FormEvent) => {
       try {
         e.preventDefault();
         setIsLoading(true);
@@ -37,9 +37,14 @@ function InputTodo({ setTodos }) {
         setInputText('');
         setIsLoading(false);
       }
+      return null;
     },
     [inputText, setTodos],
   );
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
+  };
 
   return (
     <form className="form-container" onSubmit={handleSubmit}>
@@ -48,7 +53,7 @@ function InputTodo({ setTodos }) {
         placeholder="Add new todo..."
         ref={ref}
         value={inputText}
-        onChange={e => setInputText(e.target.value)}
+        onChange={handleOnChange}
         disabled={isLoading}
       />
       {!isLoading ? (
