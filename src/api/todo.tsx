@@ -13,8 +13,7 @@ export const getTodoList = async () => {
 };
 
 interface TodoItem {
-  todo: string;
-  isDone: boolean;
+  title: string;
 }
 
 export const createTodo = async (data: TodoItem) => {
