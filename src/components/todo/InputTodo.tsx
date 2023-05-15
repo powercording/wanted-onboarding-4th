@@ -1,48 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
 
-import { createTodo } from '../../api/todo.tsx';
 import useFocus from '../../hooks/useFocus.tsx';
+import useTodo from '../../hooks/useTodo.tsx';
 
-import { Todo, SetTodos } from './TodoInterface.tsx';
+import { SetTodos } from './TodoInterface.tsx';
 
 function InputTodo({ setTodos }: { setTodos: SetTodos }) {
   const [inputText, setInputText] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const { ref, setFocus } = useFocus();
+  const { isLoading, addTodo } = useTodo(setTodos);
+  const { ref } = useFocus();
 
-  useEffect(() => {
-    setFocus();
-  }, [setFocus]);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      try {
-        e.preventDefault();
-        setIsLoading(true);
-
-        const trimmed = inputText.trim();
-        if (!trimmed) {
-          return alert('Please write something');
-        }
-
-        const newItem = { title: trimmed };
-        const { data } = await createTodo(newItem);
-
-        if (data) {
-          return setTodos((prev: Todo[]) => [...prev, data]);
-        }
-      } catch (error) {
-        console.error(error);
-        alert('Something went wrong.');
-      } finally {
-        setInputText('');
-        setIsLoading(false);
-      }
-      return null;
-    },
-    [inputText, setTodos],
-  );
+    await addTodo({ todoTitle: inputText });
+    setInputText('');
+  };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
