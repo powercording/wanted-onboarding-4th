@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import Header from '../components/header/Header.tsx';
-import InputTodo from '../components/InputTodo.tsx';
-import TodoList from '../components/TodoList.tsx';
+import InputTodo from '../components/todo/InputTodo.tsx';
+import TodoList from '../components/todo/TodoList.tsx';
 import { getTodoList } from '../api/todo.tsx';
 
+import { Todo } from '../components/todo/TodoInterface.tsx';
+
 function Main() {
-  const [todoListData, setTodoListData] = useState([]);
+  const [todoListData, setTodoListData] = useState<Todo[]>([]);
 
   useEffect(() => {
     (async () => {

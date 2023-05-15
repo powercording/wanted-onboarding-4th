@@ -1,16 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { FaSpinner, FaTrash } from 'react-icons/fa';
-import { deleteTodo } from '../api/todo.tsx';
+import { deleteTodo } from '../../api/todo.tsx';
 
-interface TodoItemType {
-  id: number;
-  title: string;
-}
+import { Todo, SetTodos } from './TodoInterface.tsx';
 
 interface TodoItemsType {
   id: number;
   title: string;
-  setTodos: React.Dispatch<React.SetStateAction<TodoItemType[]>>;
+  setTodos: SetTodos;
 }
 
 function TodoItem({ id, title, setTodos }: TodoItemsType) {
@@ -21,7 +18,7 @@ function TodoItem({ id, title, setTodos }: TodoItemsType) {
       setIsLoading(true);
       await deleteTodo(id);
 
-      setTodos((prev: TodoItemType[]) => prev.filter((item: TodoItemType) => item.id !== id));
+      setTodos((prev: Todo[]) => prev.filter((item: Todo) => item.id !== id));
     } catch (error) {
       console.error(error);
       alert('Something went wrong.');

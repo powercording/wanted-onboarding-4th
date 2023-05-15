@@ -1,4 +1,5 @@
 import apiRequest from './index.tsx';
+import { TodoTitle } from '../components/todo/TodoInterface.tsx';
 
 const RESOURCE = '/todos';
 
@@ -12,11 +13,7 @@ export const getTodoList = async () => {
   }
 };
 
-interface TodoItem {
-  title: string;
-}
-
-export const createTodo = async (data: TodoItem) => {
+export const createTodo = async (data: TodoTitle) => {
   try {
     const response = await apiRequest.post(`${RESOURCE}`, data);
 
