@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import Header from '../components/Header.tsx';
+import Header from '../components/header/Header.tsx';
 import InputTodo from '../components/InputTodo.tsx';
 import TodoList from '../components/TodoList.tsx';
 import { getTodoList } from '../api/todo.tsx';
