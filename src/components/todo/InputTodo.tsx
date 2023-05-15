@@ -8,7 +8,7 @@ import { SetTodos } from './TodoInterface.tsx';
 
 function InputTodo({ setTodos }: { setTodos: SetTodos }) {
   const [inputText, setInputText] = useState('');
-  const { isLoading, addTodo } = useTodo(setTodos);
+  const { addTodo, isLoading } = useTodo(setTodos);
   const { ref } = useFocus();
 
   const handleSubmit = async (e: React.FormEvent) => {
