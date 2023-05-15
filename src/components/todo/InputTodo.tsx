@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FaPlusCircle, FaSpinner } from 'react-icons/fa';
 
-import { createTodo } from '../api/todo.tsx';
-import useFocus from '../hooks/useFocus.tsx';
+import { createTodo } from '../../api/todo.tsx';
+import useFocus from '../../hooks/useFocus.tsx';
 
-function InputTodo({ setTodos }) {
+import { Todo, SetTodos } from './TodoInterface.tsx';
+
+function InputTodo({ setTodos }: { setTodos: SetTodos }) {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { ref, setFocus } = useFocus();
@@ -14,7 +16,7 @@ function InputTodo({ setTodos }) {
   }, [setFocus]);
 
   const handleSubmit = useCallback(
-    async e => {
+    async (e: React.FormEvent) => {
       try {
         e.preventDefault();
         setIsLoading(true);
@@ -28,7 +30,7 @@ function InputTodo({ setTodos }) {
         const { data } = await createTodo(newItem);
 
         if (data) {
-          return setTodos(prev => [...prev, data]);
+          return setTodos((prev: Todo[]) => [...prev, data]);
         }
       } catch (error) {
         console.error(error);
@@ -37,9 +39,14 @@ function InputTodo({ setTodos }) {
         setInputText('');
         setIsLoading(false);
       }
+      return null;
     },
     [inputText, setTodos],
   );
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
+  };
 
   return (
     <form className="form-container" onSubmit={handleSubmit}>
@@ -48,7 +55,7 @@ function InputTodo({ setTodos }) {
         placeholder="Add new todo..."
         ref={ref}
         value={inputText}
-        onChange={e => setInputText(e.target.value)}
+        onChange={handleOnChange}
         disabled={isLoading}
       />
       {!isLoading ? (

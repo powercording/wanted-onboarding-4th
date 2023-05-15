@@ -12,11 +12,11 @@ const baseInstance = axios.create({
 
 baseInstance.interceptors.response.use(({ data }) => data);
 
-// interface ApiRequest {
-//   get(url: string, request?: AxiosRequestConfig): Promise<AxiosResponse>;
-//   delete(url: string, request?: AxiosRequestConfig): Promise<AxiosResponse>;
-//   post(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse>;
-// }
+interface ApiRequest {
+  get(url: string, request?: AxiosRequestConfig): Promise<AxiosResponse>;
+  delete(url: string, request?: AxiosRequestConfig): Promise<AxiosResponse>;
+  post(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse>;
+}
 
 const apiRequest: ApiRequest = {
   get: (url, request) => baseInstance.get(url, request),

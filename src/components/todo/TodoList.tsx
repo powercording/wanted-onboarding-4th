@@ -1,7 +1,14 @@
 import React from 'react';
 import TodoItem from './TodoItem.tsx';
 
-function TodoList({ todos, setTodos }) {
+import { Todo, SetTodos } from './TodoInterface.tsx';
+
+interface TodoListType {
+  todos: Todo[];
+  setTodos: SetTodos;
+}
+
+function TodoList({ todos, setTodos }: TodoListType) {
   return todos.length ? (
     <ul>
       {todos.map(({ id, title }) => (
