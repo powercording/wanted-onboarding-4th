@@ -87,3 +87,12 @@ export const SearchResultBox = styled.div`
     border: 2px solid transparent;
   }
 `;
+
+export const MoreIndicator = styled.span`
+  position: sticky;
+  display: flex;
+  bottom: 0;
+  justify-content: center;
+  width: 100%;
+  background-color: white;
+`;
