@@ -10,6 +10,7 @@ import { SetTodos } from './TodoInterface.tsx';
 // import { testSearchList } from '../../api/search.tsx';
 
 import * as S from './styledTodo.ts';
+import TodoSearchResultContainer from './TodoSearchRsultContainer.tsx';
 
 function InputTodo({ setTodos }: { setTodos: SetTodos }) {
   const [inputText, setInputText] = useState('');
@@ -35,24 +36,41 @@ function InputTodo({ setTodos }: { setTodos: SetTodos }) {
   // };
 
   return (
-    <S.Form onSubmit={handleSubmit}>
-      <S.Input
-        className="input-text"
-        placeholder="Add new todo..."
-        ref={ref}
-        value={inputText}
-        onChange={handleOnChange}
-        disabled={isLoading}
-      />
-      <S.SearchIconContainer>
-        <S.SearchIcon />
-      </S.SearchIconContainer>
-      <S.Spinner />
-      {!isLoading ? null : <FaSpinner className="spinner" />}
-      {/* <button type="button" onClick={handleTest}>
+    <S.Container>
+      <S.Form onSubmit={handleSubmit}>
+        <S.Input
+          className="input-text"
+          placeholder="Add new todo..."
+          ref={ref}
+          value={inputText}
+          onChange={handleOnChange}
+          disabled={isLoading}
+        />
+        <S.SearchIconContainer>
+          <S.SearchIcon />
+        </S.SearchIconContainer>
+        <S.Spinner />
+        {!isLoading ? null : <FaSpinner className="spinner" />}
+        {/* <button type="button" onClick={handleTest}>
         가져오기
       </button> */}
-    </S.Form>
+      </S.Form>
+      <TodoSearchResultContainer isLoading={false}>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+        <h1>312</h1>
+      </TodoSearchResultContainer>
+    </S.Container>
   );
 }
 

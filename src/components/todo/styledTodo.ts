@@ -2,6 +2,11 @@
 import styled, { keyframes } from 'styled-components';
 import { ImSpinner2 } from 'react-icons/im';
 
+export const Container = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 export const Input = styled.input`
   height: 100%;
   width: 100%;
@@ -59,4 +64,26 @@ const spin = keyframes`
 
 export const Spinner = styled(ImSpinner2)`
   animation: ${spin} 1.5s linear infinite;
+`;
+
+export const SearchResultBox = styled.div`
+  margin-top: 2px;
+  position: absolute;
+  width: 100%;
+  max-height: 164px;
+  background-color: #ffffff;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  box-shadow: 0px 0px 1px rgba(50, 50, 50, 0.05), 0px 2px 4px rgba(50, 50, 50, 0.1);
+  padding: 0px 20px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.48);
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
 `;
