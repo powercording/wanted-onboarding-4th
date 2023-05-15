@@ -13,19 +13,22 @@ export default function useTodo(setTodos: SetTodos) {
       return alert('Please write something');
     }
 
-    const { data: newTodo } = await createTodo({ title }).finally(() => {
-      setIsLoading(() => false);
-    });
+    const { data: newTodo } = await createTodo({ title }).finally(() => setIsLoading(() => false));
     setTodos((prev: Todo[]) => [...prev, newTodo]);
 
     return null;
   };
 
-  // const deleteTodo = async () => {};
+  const clearTodo = async (id: number) => {
+    setIsLoading(() => true);
+
+    await deleteTodo(id).finally(() => setIsLoading(() => false));
+    setTodos((prev: Todo[]) => prev.filter((todo: Todo) => todo.id !== id));
+  };
 
   return {
     addTodo,
-    deleteTodo,
+    clearTodo,
     isLoading,
   };
 }
