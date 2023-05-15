@@ -4,7 +4,7 @@ import * as S from './styledHeader.ts';
 function Header() {
   return (
     <S.HeaderWrapper>
-      <S.H1>Toodos</S.H1>
+      <S.H1>Todos</S.H1>
     </S.HeaderWrapper>
   );
 }
