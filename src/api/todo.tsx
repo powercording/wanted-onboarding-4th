@@ -12,7 +12,12 @@ export const getTodoList = async () => {
   }
 };
 
-export const createTodo = async data => {
+interface TodoItem {
+  todo: string;
+  isDone: boolean;
+}
+
+export const createTodo = async (data: TodoItem) => {
   try {
     const response = await apiRequest.post(`${RESOURCE}`, data);
 
@@ -22,7 +27,7 @@ export const createTodo = async data => {
   }
 };
 
-export const deleteTodo = async id => {
+export const deleteTodo = async (id: number) => {
   try {
     const response = await apiRequest.delete(`${RESOURCE}/${id}`);
 
