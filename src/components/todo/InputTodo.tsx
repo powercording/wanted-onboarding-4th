@@ -1,31 +1,35 @@
-import React, { useState } from 'react';
-
-import { FaSpinner } from 'react-icons/fa';
+/* eslint-disable object-curly-newline */
+import React, { useState, useEffect } from 'react';
 
 import useFocus from '../../hooks/useFocus.tsx';
-import useTodo from '../../hooks/useTodo.tsx';
-import useObserver from '../../hooks/useObserver.tsx';
+import useTodoApi from '../../hooks/useTodoApi.tsx';
+import useObserver, { INITIALINDEX } from '../../hooks/useObserver.tsx';
 
 import { SetTodos } from './TodoInterface.tsx';
-import { testSearchList } from '../../api/search.tsx';
 
-import TodoSearchResultContainer from './TodoSearchRsultContainer.tsx';
+import SearchContainer from './SearchContainer.tsx';
 import * as S from './styledTodo.ts';
 import debounce from '../../util/dounce.tsx';
+import useSearchResult, { INITIAL_STATE } from '../../hooks/useSearchResult.tsx';
 
 function InputTodo({ setTodos }: { setTodos: SetTodos }) {
   const [inputText, setInputText] = useState('');
-  const [searcResult, setSearcResult] = useState<any>([]);
-  const bounce = debounce();
+  const [shouldStop, setShouldStop] = useState(false);
 
-  const { addTodo, isLoading } = useTodo(setTodos);
-  const { index, observer, isIntersecting } = useObserver();
+  const { getSearch, setSearchResult, searchLoading, result, total } = useSearchResult();
+  const { addTodo, isLoading } = useTodoApi(setTodos);
+  const { index, setIndex, isIntersecting, observer } = useObserver(shouldStop);
   const { ref } = useFocus();
+  const dbounce = debounce();
 
-  function handleTest() {
-    const { result } = testSearchList(index);
-    setSearcResult((prev: any) => [...prev, ...result]);
-  }
+  const handleSearch = async (query: string = inputText) => {
+    if (result?.length && result.length >= total) setShouldStop(true);
+    await getSearch(query, index);
+  };
+
+  useEffect(() => {
+    handleSearch(inputText);
+  }, [index]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,14 +40,13 @@ function InputTodo({ setTodos }: { setTodos: SetTodos }) {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
-    bounce(window.alert, e.target.value);
+    setIndex(INITIALINDEX);
+    setSearchResult(INITIAL_STATE);
+    dbounce(handleSearch, e.target.value);
   };
 
   return (
     <S.Container>
-      <button type="button" onClick={handleTest}>
-        가져오기
-      </button>
       <S.Form onSubmit={handleSubmit}>
         <S.Input
           className="input-text"
@@ -56,12 +59,15 @@ function InputTodo({ setTodos }: { setTodos: SetTodos }) {
         <S.SearchIconContainer>
           <S.SearchIcon />
         </S.SearchIconContainer>
-        <S.Spinner />
-        {!isLoading ? null : <FaSpinner className="spinner" />}
+        {isLoading || searchLoading ? <S.Spinner /> : null}
       </S.Form>
-      <TodoSearchResultContainer isLoading={false} isIntersecting={isIntersecting}>
-        {searcResult?.map((text: string, idx: number) => {
-          if (idx === searcResult.length - 1) {
+      <SearchContainer
+        searchResult={result}
+        isLoading={searchLoading}
+        isIntersecting={isIntersecting}
+      >
+        {result?.map((text: string, idx: number) => {
+          if (idx === result.length - 1) {
             return (
               <h2 key={text} ref={observer}>
                 {text}
@@ -70,7 +76,7 @@ function InputTodo({ setTodos }: { setTodos: SetTodos }) {
           }
           return <h2 key={text}>{text}</h2>;
         })}
-      </TodoSearchResultContainer>
+      </SearchContainer>
     </S.Container>
   );
 }
