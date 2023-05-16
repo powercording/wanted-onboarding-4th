@@ -17,9 +17,11 @@ export default function useSearchResult() {
   const { result, total } = searchResult;
 
   const getSearch = async (text: string, index: number) => {
+    const query = text.trim();
+    if (!query) return;
     if (result.length && result.length >= total) return;
-    setSearchLoading(() => true);
 
+    setSearchLoading(() => true);
     try {
       const response = await getSearchList(text, index);
 
