@@ -2,7 +2,7 @@ import React from 'react';
 import { FaSpinner, FaTrash } from 'react-icons/fa';
 
 import { SetTodos } from './TodoInterface.tsx';
-import useTodo from '../../hooks/useTodo.tsx';
+import useTodo from '../../hooks/useTodoApi.tsx';
 
 interface TodoItemsType {
   id: number;
@@ -22,7 +22,7 @@ function TodoItem({ id, title, setTodos }: TodoItemsType) {
       <span>{title}</span>
       <div className="item-option">
         {!isLoading ? (
-          <button type="button" onClick={() => handleRemoveTodo()}>
+          <button type="button" onClick={handleRemoveTodo}>
             <FaTrash className="btn-trash" />
           </button>
         ) : (

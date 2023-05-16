@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { SetTodos, Todo } from '../components/todo/TodoInterface.tsx';
 import { createTodo, deleteTodo } from '../api/todo.tsx';
 
-export default function useTodo(setTodos: SetTodos) {
+export default function useTodoApi(setTodos: SetTodos) {
   const [isLoading, setIsLoading] = useState(false);
 
   const addTodo = async ({ todoTitle }: { todoTitle: string }) => {
@@ -35,8 +35,6 @@ export default function useTodo(setTodos: SetTodos) {
     } catch (error) {
       console.error(error);
       alert('Something went wrong.');
-    } finally {
-      setIsLoading(() => false);
     }
   };
 
