@@ -88,11 +88,12 @@ export const SearchResultBox = styled.div`
   }
 `;
 
-export const MoreIndicator = styled.span`
+export const Indicator = styled.span`
   position: sticky;
   display: flex;
   bottom: 0;
   justify-content: center;
   width: 100%;
+  height: 100%;
   background-color: white;
 `;

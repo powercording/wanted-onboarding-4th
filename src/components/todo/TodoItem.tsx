@@ -2,7 +2,7 @@ import React from 'react';
 import { FaSpinner, FaTrash } from 'react-icons/fa';
 
 import { SetTodos } from './TodoInterface.tsx';
-import useTodo from '../../hooks/useTodo.tsx';
+import useTodo from '../../hooks/useTodoApi.tsx';
 
 interface TodoItemsType {
   id: number;
